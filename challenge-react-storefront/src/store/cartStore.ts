@@ -8,6 +8,9 @@ interface CartItem extends Product {
 interface CartState {
   cart: CartItem[];
   addToCart: (product: Product) => void;
+  increment: (productId: number) => void;
+  decrement: (productId: number) => void;
+  getQuantity: (productId: number) => number;
 }
 
 const useCartStore = create<CartState>((set, get) => ({
@@ -24,6 +27,23 @@ const useCartStore = create<CartState>((set, get) => ({
     } else {
       set({ cart: [...cart, { ...product, quantity: 1 }] });
     }
+  },
+  increment: (productId) => {
+    set({
+      cart: get().cart.map(p =>
+        p.id === productId ? { ...p, quantity: p.quantity + 1 } : p
+      )
+    });
+  },
+  decrement: (productId) => {
+    const cart = get().cart.map(p =>
+      p.id === productId ? { ...p, quantity: p.quantity - 1 } : p
+    ).filter(p => p.quantity > 0);
+    set({ cart });
+  },
+  getQuantity: (productId) => {
+    const product = get().cart.find(p => p.id === productId);
+    return product ? product.quantity : 0;
   }
 }));
 
