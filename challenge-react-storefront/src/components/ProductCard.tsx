@@ -13,13 +13,13 @@ export default function ProductCard({ product }: { product: Product }) {
   };
 
   return (
-    <div className="border bg-white rounded p-4 flex flex-col shadow-sm">
-      <img src={product.image} alt={product.title} className="h-40 object-contain mb-2" />
-      <h2 className="font-semibold text-sm mb-1 line-clamp-2">{product.title}</h2>
-      <p className="text-lg font-bold text-green-700 mb-2">${product.price}</p>
+    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col p-4 relative">
+      <img src={product.image} alt={product.title} className="h-48 object-contain mx-auto mb-4" />
+      <h2 className="text-md font-medium mb-1 line-clamp-2">{product.title}</h2>
+      <p className="text-green-600 font-semibold text-lg mb-3">${product.price.toFixed(2)}</p>
       <button
         onClick={handleAdd}
-        className="mt-auto bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded transition"
+        className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow mt-auto"
       >
         Add to Cart
       </button>
@@ -27,3 +27,4 @@ export default function ProductCard({ product }: { product: Product }) {
     </div>
   );
 }
+
