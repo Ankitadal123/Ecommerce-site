@@ -1,6 +1,7 @@
 import {Link, Routes, Route, NavLink } from 'react-router-dom';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 import ProductDetail from './pages/ProductDetail';
 import { ShoppingCart, Home as HomeIcon } from 'lucide-react'; // Install this icon lib
 
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/checkout" element={<Checkout />} /> 
         </Routes>
       </main>
     </div>

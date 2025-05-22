@@ -1,7 +1,10 @@
 import useCartStore from '../store/cartStore';
 import { Trash2, Minus, Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Cart() {
+  const navigate = useNavigate();
   const cart = useCartStore(state => state.cart);
   const increment = useCartStore(state => state.increment);
   const decrement = useCartStore(state => state.decrement);
@@ -93,8 +96,8 @@ export default function Cart() {
                 <span>Total:</span>
                 <span>${total.toFixed(2)}</span>
               </div>
-              <button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">
-                Checkout →
+              <button onClick={() => navigate('/checkout')}className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">
+                  Checkout →
               </button>
             </div>
           </div>
