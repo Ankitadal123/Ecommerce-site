@@ -1,4 +1,4 @@
-import { Routes, Route, NavLink } from 'react-router-dom';
+import {Link, Routes, Route, NavLink } from 'react-router-dom';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import ProductDetail from './pages/ProductDetail';
@@ -9,7 +9,9 @@ export default function App() {
     <div className="min-h-screen bg-gray-100">
       <header className="bg-white shadow-md sticky top-0 z-40">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-blue-600">🛍️ DVT Store</h1>
+        <Link to="/" className="text-2xl font-bold text-blue-600 hover:opacity-80 transition">
+      🛍️ DVT Store
+    </Link>
           <nav className="flex gap-4 text-sm font-medium">
             <NavLink
               to="/"

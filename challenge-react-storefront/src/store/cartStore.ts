@@ -11,6 +11,7 @@ interface CartState {
   increment: (productId: number) => void;
   decrement: (productId: number) => void;
   getQuantity: (productId: number) => number;
+  removeFromCart: (productId: number) => void;
 }
 
 const useCartStore = create<CartState>((set, get) => ({
@@ -44,6 +45,11 @@ const useCartStore = create<CartState>((set, get) => ({
   getQuantity: (productId) => {
     const product = get().cart.find(p => p.id === productId);
     return product ? product.quantity : 0;
+  },
+  removeFromCart: (productId) => {
+    set({
+      cart: get().cart.filter(p => p.id !== productId)
+    });
   }
 }));
 
