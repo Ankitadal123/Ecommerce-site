@@ -10,13 +10,31 @@
 
 ## Features
 
-- Fetches product data from Fake Store API
-- Displays products in responsive card layout
-- Users can add products to a cart
-- Cart page displays items with quantity and total
-- Toast notification on adding to cart
-- Navigation between Home and Cart views
-- Responsive and accessible HTML structure
+Product Listing Page with:
+  - Clean card grid layout
+  - Responsive design
+  - Consistent card heights and button alignment
+- Global search bar (controlled input, lifted to App level)
+- Sidebar filter by category (fetched dynamically from the API)
+- Add to Cart functionality:
+  - Global state management using Zustand
+  - Quantity increment/decrement
+  - Visual feedback (Add to cart notification)
+- Cart Page:
+  - Product summary table
+  - Quantity control
+  - Remove item from cart
+  - Auto-calculated subtotal, tax, shipping, and total
+- Checkout Page:
+  - Delivery method and pickup details
+  - Order summary with cost breakdown
+  - Item preview
+- Product Details Page (per product)
+- Error handling for failed API requests
+- Loading states for all major fetches
+- Page not found fallback
+- Semantic HTML and accessible markup
+- Clean commit history and modular file organization
 
 ## Technology Stack
 
@@ -52,23 +70,26 @@ npm run dev
 
 Folder Structure :
 src/
+├── components/ // Reusable UI components
+│ ├── ProductCard.tsx
+│ ├── CategorySidebar.tsx
+│ └── Toast.tsx
 │
-├── components/
-│   ├── ProductCard.tsx        # Reusable product display card
-│   ├── Toast.tsx              # Reusable toast message component
+├── pages/ // Route views
+│ ├── Home.tsx
+│ ├── Cart.tsx
+│ ├── Checkout.tsx
+│ └── ProductDetail.tsx
 │
-├── pages/
-│   ├── Home.tsx               # Displays all products
-│   ├── Cart.tsx               # Displays cart items
+├── services/ // API abstraction layer
+│ ├── productService.ts
+│ └── categoryService.ts
 │
-├── services/
-│   └── productService.ts      # API interaction using fetch
+├── store/ // Zustand store setup
+│ └── cartStore.ts
 │
-├── store/
-│   └── cartStore.ts           # Zustand global state for cart
+├── types/ // TypeScript types
+│ └── product.ts
 │
-├── types/
-│   └── product.ts             # Type definition for product object
-│
-├── App.tsx                    # Main application with routing and layout
-└── main.tsx                   # Application entry point
+├── App.tsx // Layout and routing
+└── main.tsx // App entry point
