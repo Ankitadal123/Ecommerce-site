@@ -10,31 +10,21 @@
 
 ## Features
 
-Product Listing Page with:
-  - Clean card grid layout
-  - Responsive design
-  - Consistent card heights and button alignment
-- Global search bar (controlled input, lifted to App level)
-- Sidebar filter by category (fetched dynamically from the API)
-- Add to Cart functionality:
-  - Global state management using Zustand
-  - Quantity increment/decrement
-  - Visual feedback (Add to cart notification)
-- Cart Page:
-  - Product summary table
-  - Quantity control
-  - Remove item from cart
-  - Auto-calculated subtotal, tax, shipping, and total
-- Checkout Page:
-  - Delivery method and pickup details
-  - Order summary with cost breakdown
-  - Item preview
-- Product Details Page (per product)
-- Error handling for failed API requests
-- Loading states for all major fetches
-- Page not found fallback
-- Semantic HTML and accessible markup
-- Clean commit history and modular file organization
+- Product listing fetched from Fake Store API
+- Product cards with consistent height and hover effects
+- Add to Cart functionality with quantity increment/decrement
+- Zustand-based global cart state management
+- Cart page with item summary, pricing, and quantity control
+- Checkout page with cost breakdown and delivery section
+- Responsive category sidebar with toggle and filter
+- Global search bar shown on the home page
+- Login/Logout functionality with Zustand store
+- Dynamic display of user's name derived from email
+- Protected UI elements based on auth state
+- Responsive layout with Tailwind CSS utilities
+- Routing using React Router v6
+- Error handling for API requests
+- Clean and structured commit history
 
 ## Technology Stack
 
@@ -69,27 +59,30 @@ npm install
 npm run dev
 
 Folder Structure :
+Folder Structure:
 src/
-├── components/ // Reusable UI components
-│ ├── ProductCard.tsx
-│ ├── CategorySidebar.tsx
-│ └── Toast.tsx
-│
-├── pages/ // Route views
-│ ├── Home.tsx
-│ ├── Cart.tsx
-│ ├── Checkout.tsx
-│ └── ProductDetail.tsx
-│
-├── services/ // API abstraction layer
-│ ├── productService.ts
-│ └── categoryService.ts
-│
-├── store/ // Zustand store setup
-│ └── cartStore.ts
-│
-├── types/ // TypeScript types
-│ └── product.ts
-│
-├── App.tsx // Layout and routing
-└── main.tsx // App entry point
+├── components/             // Reusable UI components
+│   ├── ProductCard.tsx         // Product card display with cart actions
+│   ├── CategorySidebar.tsx     // Collapsible category filter sidebar
+│   └── Toast.tsx               // Notification component for cart actions
+
+├── pages/                  // Route-based views
+│   ├── Home.tsx                // Main storefront with product grid
+│   ├── Cart.tsx                // Cart contents and quantity management
+│   ├── Checkout.tsx            // Order summary and delivery info
+│   ├── Login.tsx               // Mock login form using Zustand
+│   └── ProductDetail.tsx       // Individual product details page
+
+├── services/               // API abstraction layer
+│   ├── productService.ts       // Fetch all products
+│   └── categoryService.ts      // Fetch product categories
+
+├── store/                  // Zustand store setup
+│   ├── cartStore.ts            // Cart state management
+│   └── authStore.ts            // Auth state with login/logout
+
+├── types/                  // TypeScript shared types
+│   └── product.ts              // Product interface definition
+
+├── App.tsx                 // Application layout and routes
+└── main.tsx                // Application entry point
