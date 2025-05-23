@@ -18,12 +18,12 @@ export default function ProductCard({ product }: { product: Product }) {
     setTimeout(() => setAddedMessage(false), 2000);
   };
 
-  const stars = getStars(3.5); // Static for now (or extend Product to include rating)
+  const stars = getStars(3.5); // Replace with actual rating if available
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl shadow-md p-4 flex flex-col items-center text-center hover:shadow-lg transition relative">
-      {/* Product Image and Title */}
-      <Link to={`/product/${product.id}`} className="mb-4 flex flex-col items-center gap-2 group hover:opacity-90">
+    <div className="bg-white border border-gray-200 rounded-xl shadow-md p-4 flex flex-col h-full hover:shadow-lg transition relative">
+      {/* Image and Title */}
+      <Link to={`/product/${product.id}`} className="flex-1 flex flex-col items-center text-center group hover:opacity-90 mb-4">
         <div className="h-48 w-full flex items-center justify-center">
           <img
             src={product.image}
@@ -31,48 +31,51 @@ export default function ProductCard({ product }: { product: Product }) {
             className="h-full object-contain transition-transform group-hover:scale-105"
           />
         </div>
-        <h2 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2">{product.title}</h2>
+        <h2 className="text-sm font-semibold text-gray-900 mt-3 line-clamp-2">{product.title}</h2>
       </Link>
 
       {/* Rating and Price */}
-      <div className="flex items-center justify-center gap-1 text-yellow-500 text-sm mb-2">
-        {stars}
-        <span className="text-gray-700 font-semibold ml-2">${product.price.toFixed(2)}</span>
+      <div className="text-sm text-center mb-3">
+        <div className="flex items-center justify-center gap-1 text-yellow-500">
+          {stars}
+        </div>
+        <span className="text-gray-700 font-semibold mt-1 block">${product.price.toFixed(2)}</span>
       </div>
 
-      {/* Add or Update Quantity */}
-      {quantity === 0 ? (
-        <button
-          onClick={handleAdd}
-          className="w-full mt-2 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 font-medium transition"
-        >
-          Add to Cart
-        </button>
-      ) : (
-        <div className="mt-2 flex items-center justify-center space-x-4">
+      {/* Quantity or Add */}
+      <div className="mt-auto space-y-2 text-center">
+        {quantity === 0 ? (
           <button
-            onClick={() => decrement(product.id)}
-            className="w-8 h-8 rounded-full bg-red-500 text-white font-bold hover:bg-red-600 transition"
+            onClick={handleAdd}
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 font-medium transition"
           >
-            −
+            Add to Cart
           </button>
-          <span className="font-medium text-gray-800">{quantity}</span>
-          <button
-            onClick={() => increment(product.id)}
-            className="w-8 h-8 rounded-full bg-blue-600 text-white font-bold hover:bg-blue-700 transition"
-          >
-            +
-          </button>
-        </div>
-      )}
+        ) : (
+          <div className="flex items-center justify-center space-x-4">
+            <button
+              onClick={() => decrement(product.id)}
+              className="w-8 h-8 rounded-full bg-red-500 text-white font-bold hover:bg-red-600 transition"
+            >
+              −
+            </button>
+            <span className="font-medium text-gray-800">{quantity}</span>
+            <button
+              onClick={() => increment(product.id)}
+              className="w-8 h-8 rounded-full bg-blue-600 text-white font-bold hover:bg-blue-700 transition"
+            >
+              +
+            </button>
+          </div>
+        )}
 
-      {/* View Details Link */}
-      <Link
-        to={`/product/${product.id}`}
-        className="mt-3 text-sm text-blue-600 hover:underline"
-      >
-        View Details
-      </Link>
+        <Link
+          to={`/product/${product.id}`}
+          className="block text-sm text-blue-600 hover:underline"
+        >
+          View Details
+        </Link>
+      </div>
 
       {/* Toast-style message */}
       {addedMessage && (
@@ -84,7 +87,7 @@ export default function ProductCard({ product }: { product: Product }) {
   );
 }
 
-// Rating utility
+// Star rendering helper
 function getStars(rating: number) {
   const full = Math.floor(rating);
   const half = rating % 1 >= 0.5;
@@ -93,7 +96,7 @@ function getStars(rating: number) {
   return (
     <>
       {[...Array(full)].map((_, i) => <Star key={`f-${i}`} className="w-4 h-4 fill-current" />)}
-      {half && <StarHalf className="w-4 h-4 fill-current" />}
+      {half && <StarHalf key="half" className="w-4 h-4 fill-current" />}
       {[...Array(empty)].map((_, i) => <EmptyStar key={`e-${i}`} className="w-4 h-4 text-gray-300" />)}
     </>
   );

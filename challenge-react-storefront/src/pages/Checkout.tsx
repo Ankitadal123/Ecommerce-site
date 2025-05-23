@@ -1,14 +1,24 @@
 import { Link } from 'react-router-dom';
 import useCartStore from '../store/cartStore';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Checkout() {
   const cart = useCartStore(state => state.cart);
-
+  const clearCart = useCartStore((state) => state.clearCart);
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const tax = subtotal * 0.1;
   const shipping = 5;
   const total = subtotal + tax + shipping;
+  const navigate = useNavigate();
+  
 
+  const handlePayment = () => {
+    alert('Payment Successful!');
+    clearCart();
+    navigate('/');
+    
+  };
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="flex justify-between items-start mb-6">
@@ -91,7 +101,7 @@ export default function Checkout() {
                 <span>Total:</span>
                 <span className="text-green-600">${total.toFixed(2)}</span>
               </div>
-              <button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded mt-4 transition">
+              <button  onClick={handlePayment} className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded mt-4 transition">
                 PAY WITH CARD
               </button>
               <p className="text-center text-xs text-gray-500 mt-2">🔒 Secure Checkout</p>

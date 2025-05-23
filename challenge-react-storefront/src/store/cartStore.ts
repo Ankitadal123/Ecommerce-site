@@ -12,10 +12,12 @@ interface CartState {
   decrement: (productId: number) => void;
   getQuantity: (productId: number) => number;
   removeFromCart: (productId: number) => void;
+  clearCart: () => void;
 }
 
 const useCartStore = create<CartState>((set, get) => ({
   cart: [],
+
   addToCart: (product) => {
     const cart = get().cart;
     const exists = cart.find(p => p.id === product.id);
@@ -29,6 +31,7 @@ const useCartStore = create<CartState>((set, get) => ({
       set({ cart: [...cart, { ...product, quantity: 1 }] });
     }
   },
+
   increment: (productId) => {
     set({
       cart: get().cart.map(p =>
@@ -36,20 +39,29 @@ const useCartStore = create<CartState>((set, get) => ({
       )
     });
   },
+
   decrement: (productId) => {
-    const cart = get().cart.map(p =>
-      p.id === productId ? { ...p, quantity: p.quantity - 1 } : p
-    ).filter(p => p.quantity > 0);
+    const cart = get().cart
+      .map(p =>
+        p.id === productId ? { ...p, quantity: p.quantity - 1 } : p
+      )
+      .filter(p => p.quantity > 0);
     set({ cart });
   },
+
   getQuantity: (productId) => {
     const product = get().cart.find(p => p.id === productId);
     return product ? product.quantity : 0;
   },
+
   removeFromCart: (productId) => {
     set({
       cart: get().cart.filter(p => p.id !== productId)
     });
+  },
+
+  clearCart: () => {
+    set({ cart: [] });
   }
 }));
 

@@ -6,10 +6,15 @@ import ProductDetail from './pages/ProductDetail';
 import Login from './pages/Login';
 import useAuthStore from './store/authStore';
 import { ShoppingCart, Home as HomeIcon, User } from 'lucide-react';
+import useCartStore from './store/cartStore';
+import Footer from './components/Footer';
+
 
 export default function App() {
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const cart = useCartStore((state) => state.cart);
+
 
   const { isLoggedIn, email, logout } = useAuthStore();
 
@@ -62,13 +67,15 @@ export default function App() {
               <NavLink
                 to="/cart"
                 className={({ isActive }) =>
-                  `flex items-center gap-1 px-3 py-2 rounded-lg transition ${
-                    isActive ? 'bg-blue-100 text-blue-700' : 'hover:text-blue-600'
-                  }`
-                }
-              >
-                <ShoppingCart className="h-4 w-4" /> Cart
+                `flex items-center gap-1 px-3 py-2 rounded-lg transition ${
+                 isActive ? 'bg-blue-100 text-blue-700' : 'hover:text-blue-600'
+                }`
+                 }
+                 >
+              <ShoppingCart className="h-4 w-4" />
+               {cart.length > 0 && <span className="font-semibold">({cart.length})</span>}
               </NavLink>
+
             </nav>
 
             {/* Auth section */}
@@ -111,6 +118,7 @@ export default function App() {
           />
         </Routes>
       </main>
+      <Footer />
     </div>
   );
 }
